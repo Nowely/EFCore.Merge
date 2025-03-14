@@ -79,7 +79,6 @@ WHEN NOT MATCHED [AND <condition>] THEN
 ### 3. When not matched by source
 
 #### 3.1
-*Not interesting, so specific.*
 ```sql
 MERGE INTO "Target" AS n
 USING "Source" AS n
@@ -120,4 +119,49 @@ WHEN NOT MATCHED [AND <condition>] THEN
     <insert_statement>
 WHEN NOT MATCHED [AND <condition>] BY SOURCE THEN
     <delete_statement>
+```
+
+## Api
+Only 4.1 and 4.2 are interesting.
+
+Variant 1. One method:
+```csharp
+public async Task MergeAsync(
+	this DbSet<TEntity> target,
+	TEntity[] source,
+	Func? on,
+	Func? update,
+	bool shouldDelete = false
+	)
+	{}
+```
+Example
+
+syncronize
+```csharp
+await Users.MergeAsync(
+	data,
+	on: (user) => user.ExternalId,
+	update: (old, new) => {
+			old.Name = new.Name;
+			old.Surname = new.Surname;
+		}
+	shouldDelete: true
+	);
+```
+
+upsert
+```csharp
+await Users.MergeAsync(
+	data,
+	on: (user) => user.ExternalId,
+	update: (old, new) => {
+			old.Name = new.Name;
+			old.Surname = new.Surname;
+		}
+	);
+```
+Match by primary key. Update all values
+```csharp
+await Users.MergeAsync(data);
 ```
