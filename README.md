@@ -9,6 +9,12 @@ Uses the `Merge` sql command.
 Requirements:
 - Postgres >= 15
 
+References:
+- [FlexLabs.Upsert](https://github.com/artiomchi/FlexLabs.Upsert)
+- [Postgres MERGE](https://www.postgresql.org/docs/current/sql-merge.html)
+- [Merge/Upsert/AddOrUpdate support](https://github.com/dotnet/efcore/issues/4526)
+- [EFCore.BulkExtensions.MIT](https://github.com/videokojot/EFCore.BulkExtensions.MIT)
+
 ## Synopsys
 
 ```
